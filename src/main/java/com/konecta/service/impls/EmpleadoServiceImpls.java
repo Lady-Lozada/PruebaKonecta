@@ -32,24 +32,6 @@ public class EmpleadoServiceImpls implements EmpleadoService{
 		return empleadoR.findById(id);
 	}
 
-	/*@Override
-	public Empleado insertEmpleado(Empleado empleado, int id) {
-		try {
-			Optional<Empleado> existUser = empleadoR.findById(id);
-			
-			System.out.println("existUser " + existUser);
-			
-			if(!existUser.isPresent()) {
-				return empleadoR.save(empleado);
-			}
-		} catch (Exception e) {
-			System.out.println("Error al guardar usuario: " + e.getMessage());
-			e.printStackTrace();
-		}
-		return empleado;
-		
-	}*/
-	
 	public Empleado insertEmpleado(Empleado empleado) throws Exception {
 		boolean exist = empleadoR.existsById(empleado.getId());
 		if(!exist) {
@@ -59,15 +41,6 @@ public class EmpleadoServiceImpls implements EmpleadoService{
 		}
 		return empleado;
 	}
-	/**
-	 * @Override
-	public void createMovie(Movie movie) {
-		boolean existGender = genderRepository.existsById(movie.getGenderId().getId());
-		if(existGender) {
-			movie.setCreateAt(LocalDateTime.now());
-			movieRepository.save(movie);
-		}
-	}
-	 */
+	
 
 }

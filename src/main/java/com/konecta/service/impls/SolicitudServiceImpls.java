@@ -7,11 +7,10 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.konecta.dto.SolicitudYNameEmployDTO;
+import com.konecta.model.entity.Empleado;
 import com.konecta.model.entity.Solicitud;
 import com.konecta.model.repository.SolicitudRepository;
 import com.konecta.service.iface.SolicitudService;
@@ -25,20 +24,22 @@ public class SolicitudServiceImpls implements SolicitudService{
 	@Override
 	@Transactional
 	public List<Solicitud> getAll() {
-		List<Solicitud> solicitudes = new ArrayList<>();
-		solicitudes = (List<Solicitud>) solicitudR.findAll();
-		return solicitudes;
+		//List<Solicitud> solicitudes = new ArrayList<>();
+		//solicitudes = (List<Solicitud>) solicitudR.findAll();
+		return (List<Solicitud>) solicitudR.findAll();
 	}
 
 	@Override
-	public Solicitud insertSolicitud(Solicitud sol) {
+	public Solicitud insertSolicitud(Solicitud sol) throws Exception {
 		boolean exist = solicitudR.existsById(sol.getId());
 		if(!exist) {
 			solicitudR.save(sol);
+		}else {
+			throw new Exception("El empleado ya existe");
 		}
 		return sol;
 	}
-
+	
 	@Override
 	public Optional<Solicitud> getById(int id) {
 		return solicitudR.findById(id);
@@ -57,6 +58,7 @@ public class SolicitudServiceImpls implements SolicitudService{
 			solDTO.setResumen(sol.getResumen());
 			solDTO.setNameEmploy(sol.getIdEmpl().getName());
 			solsDTO.add(solDTO);
+			solDTO = new SolicitudYNameEmployDTO();
 		}
 		return solsDTO;
 	}

@@ -3,8 +3,6 @@ package com.konecta.service.iface;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.http.ResponseEntity;
-
 import com.konecta.dto.SolicitudYNameEmployDTO;
 import com.konecta.model.entity.Solicitud;
 
@@ -26,8 +24,9 @@ public interface SolicitudService {
 	/**
 	 * Insertar un empleado
 	 * @param Empleado
+	 * @throws Exception 
 	 */
-	public Solicitud insertSolicitud(Solicitud sol);
+	public Solicitud insertSolicitud(Solicitud sol) throws Exception;
 	
 	/**
 	 * Listar todas las solicitudes con nombre de empleado
